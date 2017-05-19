@@ -29,15 +29,13 @@ namespace FriendsBaseASP.DataAccess
 
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
+                con.Close();
+
                 return result;
             }
             catch
             {
                 return result = "";
-            }
-            finally
-            {
-                con.Close();
             }
         }
 
@@ -58,15 +56,13 @@ namespace FriendsBaseASP.DataAccess
 
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
+                con.Close();
+
                 return result;
             }
             catch
             {
                 return result = "";
-            }
-            finally
-            {
-                con.Close();
             }
         }
 
@@ -87,15 +83,13 @@ namespace FriendsBaseASP.DataAccess
 
                 con.Open();
                 result = cmd.ExecuteScalar().ToString();
+                con.Close();
+
                 return result;
             }
             catch
             {
                 return result = "";
-            }
-            finally
-            {
-                con.Close();
             }
         }
 
@@ -121,6 +115,7 @@ namespace FriendsBaseASP.DataAccess
                 da.SelectCommand = cmd;
                 ds = new DataSet();
                 da.Fill(ds);
+                con.Close();
 
                 friends = new List<Friend>();
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -137,10 +132,6 @@ namespace FriendsBaseASP.DataAccess
             catch
             {
                 return friends;
-            }
-            finally
-            {
-                con.Close();
             }
         }
 
@@ -164,6 +155,7 @@ namespace FriendsBaseASP.DataAccess
                 da.SelectCommand = cmd;
                 ds = new DataSet();
                 da.Fill(ds);
+                con.Close();
 
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
@@ -178,12 +170,7 @@ namespace FriendsBaseASP.DataAccess
             {
                 return friend;
             }
-            finally
-            {
-                con.Close();
-            }
         }
-
 
     }
 }

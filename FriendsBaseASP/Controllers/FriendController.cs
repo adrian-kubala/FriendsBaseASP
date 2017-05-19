@@ -1,4 +1,5 @@
-﻿using FriendsBaseASP.Models;
+﻿using FriendsBaseASP.DataAccess;
+using FriendsBaseASP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,26 @@ namespace FriendsBaseASP.Controllers
         [HttpPost]
         public ActionResult InsertFriend(Friend friend)
         {
+            if (ModelState.IsValid) //checking model is valid or not
+            {
+                DataAccessLayer objDB = new DataAccessLayer();
+                string result = objDB.InsertData(friend);
+                ViewData["result"] = result;
+                ModelState.Clear(); //clearing model
+                return View();
+            }
+            else
+            {
+                ModelState.AddModelError("", "Error in saving data");
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ShowAllFriendsDetails()
+        {
             return View();
         }
+
     }
 }

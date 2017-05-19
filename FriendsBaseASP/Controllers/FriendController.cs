@@ -16,6 +16,12 @@ namespace FriendsBaseASP.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult InsertFriend()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult InsertFriend(Friend friend)
         {

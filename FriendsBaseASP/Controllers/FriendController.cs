@@ -44,7 +44,10 @@ namespace FriendsBaseASP.Controllers
         [HttpGet]
         public ActionResult ShowAllFriendsDetails()
         {
-            return View();
+            Friend friend = new Friend();
+            DataAccessLayer db = new DataAccessLayer(); //calling class DBdata
+            friend.AllFriends = db.SelectAllData();
+            return View(friend);
         }
 
     }

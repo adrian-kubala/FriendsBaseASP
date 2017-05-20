@@ -17,6 +17,6 @@ namespace FriendsBaseASP.Models
         [Required(ErrorMessage = "Insert last name")]
         public string lastName { get; set; }
 
-        public List<Friend> AllFriends { get; set; }
+        public List<Friend> AllFriends { get; set; } 
     }
 }

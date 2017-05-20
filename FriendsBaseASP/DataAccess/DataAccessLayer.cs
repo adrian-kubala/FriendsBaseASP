@@ -69,8 +69,6 @@ namespace FriendsBaseASP.DataAccess
             {
                 SetCommand("DELETE FROM Znajomy WHERE Znajomy.Id_znajomego = @Id_znajomego");
                 command.Parameters.AddWithValue("@Id_znajomego", friend.id);
-                command.Parameters.AddWithValue("@Imie_znajomego", null);
-                command.Parameters.AddWithValue("@Nazwisko_znajomego", null);
 
                 connection.Open();
                 result = command.ExecuteScalar().ToString();
@@ -125,8 +123,6 @@ namespace FriendsBaseASP.DataAccess
             {
                 SetCommand("SELECT * FROM Znajomy WHERE Znajomy.Id_znajomego = @Id_znajomego");
                 command.Parameters.AddWithValue("@Id_znajomego", friendId);
-                command.Parameters.AddWithValue("@Imie_znajomego", null);
-                command.Parameters.AddWithValue("@Nazwisko_znajomego", null);
 
                 SqlDataAdapter da = new SqlDataAdapter();
                 da.SelectCommand = command;

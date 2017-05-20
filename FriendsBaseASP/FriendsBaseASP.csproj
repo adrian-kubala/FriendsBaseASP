@@ -181,6 +181,7 @@
     <Content Include="Views\Friend\InsertFriend.cshtml" />
     <Content Include="Views\Friend\ShowAllFriendsDetails.cshtml" />
     <Content Include="Views\Friend\EditFriend.cshtml" />
+    <Content Include="Views\Friend\DeleteFriend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

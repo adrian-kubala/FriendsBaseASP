@@ -76,5 +76,23 @@ namespace FriendsBaseASP.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult DeleteFriend(string id)
+        {
+            Friend objCustomer = new Friend();
+            DataAccessLayer db = new DataAccessLayer(); //calling class DBdata
+            return View(db.SelectDataById(id));
+        }
+
+        [HttpPost]
+        public ActionResult DeleteFriend(Friend friend)
+        {
+            DataAccessLayer db = new DataAccessLayer();
+            string result = db.DeleteData(friend);
+            ViewData["result"] = result;
+            ModelState.Clear(); //clearing model
+            return View();
+        }
+
     }
 }

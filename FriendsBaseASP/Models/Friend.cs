@@ -11,10 +11,10 @@ namespace FriendsBaseASP.Models
         [Key]
         public int id { get; set; }
 
-        [Required(ErrorMessage ="Wprowadź imię")]
+        [Required(ErrorMessage ="Insert name")]
         public string name { get; set; }
 
-        [Required(ErrorMessage = "Wprowadź nazwisko")]
+        [Required(ErrorMessage = "Insert last name")]
         public string lastName { get; set; }
 
         public List<Friend> AllFriends { get; set; }

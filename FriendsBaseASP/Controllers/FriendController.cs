@@ -61,7 +61,7 @@ namespace FriendsBaseASP.Controllers
                 string result = db.UpdateData(friend);
                 ViewData["result"] = result;
                 ModelState.Clear(); //clearing model
-                return View();
+                return RedirectToAction("Index");
             }
             else
             {
@@ -85,7 +85,7 @@ namespace FriendsBaseASP.Controllers
             string result = db.DeleteData(friend);
             ViewData["result"] = result;
             ModelState.Clear(); //clearing model
-            return View();
+            return RedirectToAction("Index");
         }
 
     }

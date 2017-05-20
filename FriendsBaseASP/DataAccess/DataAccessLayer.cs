@@ -11,25 +11,26 @@ namespace FriendsBaseASP.DataAccess
 {
     public class DataAccessLayer
     {
+        SqlConnection connection = new SqlConnection(Properties.Resources.socialMediaDatabaseConnectionString);
+        SqlCommand command;
+
+        private void SetCommand(string text)
+        {
+            command = new SqlCommand(text, connection);
+        }
+
         public string InsertData(Friend friend)
         {
-
-            SqlConnection con = null;
             string result = "";
             try
             {
-                con = new SqlConnection(ConfigurationManager.ConnectionStrings["mycon"].ToString());
-                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Customer", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SetCommand("INSERT INTO Znajomy(Imie_znajomego, Nazwisko_znajomego)VALUES(@Imie_znajomego, @Nazwisko_znajomego)");
+                command.Parameters.AddWithValue("@Imie_znajomego", friend.name);
+                command.Parameters.AddWithValue("@Nazwisko_znajomego", friend.lastName);
 
-                cmd.Parameters.AddWithValue("@Id_znajomego", 0);
-                cmd.Parameters.AddWithValue("@Imie_znajomego", friend.name);
-                cmd.Parameters.AddWithValue("@Nazwisko_znajomego", friend.lastName);
-                cmd.Parameters.AddWithValue("@Query", 1);
-
-                con.Open();
-                result = cmd.ExecuteScalar().ToString();
-                con.Close();
+                connection.Open();
+                result = command.ExecuteScalar().ToString();
+                connection.Close();
 
                 return result;
             }
@@ -41,22 +42,17 @@ namespace FriendsBaseASP.DataAccess
 
         public string UpdateData(Friend friend)
         {
-            SqlConnection con = null;
             string result = "";
             try
             {
-                con = new SqlConnection(ConfigurationManager.ConnectionStrings["mycon"].ToString());
-                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Customer", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SetCommand("UPDATE Znajomy SET Imie_znajomego = @Imie_znajomego, Nazwisko_znajomego = @Nazwisko_znajomego WHERE Znajomy.Id_znajomego = @Id_znajomego");
+                command.Parameters.AddWithValue("@Id_znajomego", friend.id);
+                command.Parameters.AddWithValue("@Imie_znajomego", friend.name);
+                command.Parameters.AddWithValue("@Nazwisko_znajomego", friend.lastName);
 
-                cmd.Parameters.AddWithValue("@Id_znajomego", friend.id);
-                cmd.Parameters.AddWithValue("@Imie_znajomego", friend.name);
-                cmd.Parameters.AddWithValue("@Nazwisko_znajomego", friend.lastName);
-                cmd.Parameters.AddWithValue("@Query", 2);
-
-                con.Open();
-                result = cmd.ExecuteScalar().ToString();
-                con.Close();
+                connection.Open();
+                result = command.ExecuteScalar().ToString();
+                connection.Close();
 
                 return result;
             }
@@ -68,22 +64,17 @@ namespace FriendsBaseASP.DataAccess
 
         public string DeleteData(Friend friend)
         {
-            SqlConnection con = null;
             string result = "";
             try
             {
-                con = new SqlConnection(ConfigurationManager.ConnectionStrings["mycon"].ToString());
-                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Customer", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SetCommand("DELETE FROM Znajomy WHERE Znajomy.Id_znajomego = @Id_znajomego");
+                command.Parameters.AddWithValue("@Id_znajomego", friend.id);
+                command.Parameters.AddWithValue("@Imie_znajomego", null);
+                command.Parameters.AddWithValue("@Nazwisko_znajomego", null);
 
-                cmd.Parameters.AddWithValue("@Id_znajomego", friend.id);
-                cmd.Parameters.AddWithValue("@Imie_znajomego", null);
-                cmd.Parameters.AddWithValue("@Nazwisko_znajomego", null);
-                cmd.Parameters.AddWithValue("@Query", 3);
-
-                con.Open();
-                result = cmd.ExecuteScalar().ToString();
-                con.Close();
+                connection.Open();
+                result = command.ExecuteScalar().ToString();
+                connection.Close();
 
                 return result;
             }
@@ -95,27 +86,18 @@ namespace FriendsBaseASP.DataAccess
 
         public List<Friend> SelectAllData()
         {
-            SqlConnection con = null;
-
             DataSet ds = null;
             List<Friend> friends = null;
             try
             {
-                con = new SqlConnection(ConfigurationManager.ConnectionStrings["mycon"].ToString());
-                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Customer", con);
-                cmd.CommandType = CommandType.StoredProcedure;
+                SetCommand("SELECT * FROM Znajomy");
 
-                cmd.Parameters.AddWithValue("@Id_znajomego", null);
-                cmd.Parameters.AddWithValue("@Imie_znajomego", null);
-                cmd.Parameters.AddWithValue("@Nazwisko_znajomego", null);
-                cmd.Parameters.AddWithValue("@Query", 4);
-
-                con.Open();
+                connection.Open();
                 SqlDataAdapter da = new SqlDataAdapter();
-                da.SelectCommand = cmd;
+                da.SelectCommand = command;
                 ds = new DataSet();
                 da.Fill(ds);
-                con.Close();
+                connection.Close();
 
                 friends = new List<Friend>();
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -137,25 +119,20 @@ namespace FriendsBaseASP.DataAccess
 
         public Friend SelectDataById(string friendId)
         {
-            SqlConnection con = null;
             DataSet ds = null;
             Friend friend = null;
             try
             {
-                con = new SqlConnection(ConfigurationManager.ConnectionStrings["mycon"].ToString());
-                SqlCommand cmd = new SqlCommand("Usp_InsertUpdateDelete_Customer", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@Id_znajomego", friendId);
-                cmd.Parameters.AddWithValue("@Imie_znajomego", null);
-                cmd.Parameters.AddWithValue("@Nazwisko_znajomego", null);
-                cmd.Parameters.AddWithValue("@Query", 5);
+                SetCommand("SELECT * FROM Znajomy WHERE Znajomy.Id_znajomego = @Id_znajomego");
+                command.Parameters.AddWithValue("@Id_znajomego", friendId);
+                command.Parameters.AddWithValue("@Imie_znajomego", null);
+                command.Parameters.AddWithValue("@Nazwisko_znajomego", null);
 
                 SqlDataAdapter da = new SqlDataAdapter();
-                da.SelectCommand = cmd;
+                da.SelectCommand = command;
                 ds = new DataSet();
                 da.Fill(ds);
-                con.Close();
+                connection.Close();
 
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {

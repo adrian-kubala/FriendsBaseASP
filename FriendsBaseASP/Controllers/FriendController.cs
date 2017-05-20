@@ -14,17 +14,20 @@ namespace FriendsBaseASP.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            Friend friend = new Friend();
+            DataAccessLayer db = new DataAccessLayer(); //calling class DBdata
+            friend.AllFriends = db.SelectAllData();
+            return View(friend);
         }
 
         [HttpGet]
-        public ActionResult InsertFriend()
+        public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult InsertFriend(Friend friend)
+        public ActionResult Create(Friend friend)
         {
             if (ModelState.IsValid) //checking model is valid or not
             {
@@ -42,16 +45,7 @@ namespace FriendsBaseASP.Controllers
         }
 
         [HttpGet]
-        public ActionResult ShowAllFriendsDetails()
-        {
-            Friend friend = new Friend();
-            DataAccessLayer db = new DataAccessLayer(); //calling class DBdata
-            friend.AllFriends = db.SelectAllData();
-            return View(friend);
-        }
-
-        [HttpGet]
-        public ActionResult EditFriend(string id)
+        public ActionResult Edit(string id)
         {
             Friend friend = new Friend();
             DataAccessLayer db = new DataAccessLayer(); //calling class DBdata
@@ -59,7 +53,7 @@ namespace FriendsBaseASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditFriend(Friend friend)
+        public ActionResult Edit(Friend friend)
         {
             if (ModelState.IsValid) //checking model is valid or not
             {
@@ -77,7 +71,7 @@ namespace FriendsBaseASP.Controllers
         }
 
         [HttpGet]
-        public ActionResult DeleteFriend(string id)
+        public ActionResult Delete(string id)
         {
             Friend objCustomer = new Friend();
             DataAccessLayer db = new DataAccessLayer(); //calling class DBdata
@@ -85,7 +79,7 @@ namespace FriendsBaseASP.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteFriend(Friend friend)
+        public ActionResult Delete(Friend friend)
         {
             DataAccessLayer db = new DataAccessLayer();
             string result = db.DeleteData(friend);

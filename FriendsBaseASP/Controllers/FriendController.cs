@@ -28,8 +28,8 @@ namespace FriendsBaseASP.Controllers
         {
             if (ModelState.IsValid) //checking model is valid or not
             {
-                DataAccessLayer objDB = new DataAccessLayer();
-                string result = objDB.InsertData(friend);
+                DataAccessLayer db = new DataAccessLayer();
+                string result = db.InsertData(friend);
                 ViewData["result"] = result;
                 ModelState.Clear(); //clearing model
                 return View();
@@ -48,6 +48,32 @@ namespace FriendsBaseASP.Controllers
             DataAccessLayer db = new DataAccessLayer(); //calling class DBdata
             friend.AllFriends = db.SelectAllData();
             return View(friend);
+        }
+
+        [HttpGet]
+        public ActionResult EditFriend(string id)
+        {
+            Friend friend = new Friend();
+            DataAccessLayer db = new DataAccessLayer(); //calling class DBdata
+            return View(db.SelectDataById(id));
+        }
+
+        [HttpPost]
+        public ActionResult EditFriend(Friend friend)
+        {
+            if (ModelState.IsValid) //checking model is valid or not
+            {
+                DataAccessLayer db = new DataAccessLayer(); //calling class DBdata
+                string result = db.UpdateData(friend);
+                ViewData["result"] = result;
+                ModelState.Clear(); //clearing model
+                return View();
+            }
+            else
+            {
+                ModelState.AddModelError("", "Error in saving data");
+                return View();
+            }
         }
 
     }

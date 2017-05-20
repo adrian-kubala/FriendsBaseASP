@@ -180,6 +180,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Friend\InsertFriend.cshtml" />
     <Content Include="Views\Friend\ShowAllFriendsDetails.cshtml" />
+    <Content Include="Views\Friend\EditFriend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -197,6 +198,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

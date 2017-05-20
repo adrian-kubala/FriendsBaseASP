@@ -68,43 +68,5 @@ namespace FriendsBaseASP.Properties {
                 return ResourceManager.GetString("socialMediaDatabaseConnectionString", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CREATE PROCEDURE Usp_InsertUpdateDelete_Znajomy
-        ///@Id_znajomego BIGINT = 0
-        ///,@Imie_znajomego NVARCHAR(20) = NULL
-        ///,@Nazwisko_znajomego NVARCHAR(30) = NULL
-        ///,@Query INT
-        ///AS
-        ///BEGIN
-        ///IF (@Query = 1)
-        ///BEGIN
-        ///INSERT INTO Znajomy(
-        ///Imie_znajomego
-        ///,Nazwisko_znajomego
-        ///)
-        ///VALUES (
-        ///@Imie_znajomego
-        ///,@Nazwisko_znajomego
-        ///)
-        ///
-        ///IF (@@ROWCOUNT &gt; 0)
-        ///BEGIN
-        ///SELECT &apos;Insert&apos;
-        ///END
-        ///END
-        ///
-        ///IF (@Query = 2)
-        ///BEGIN
-        ///UPDATE Znajomy
-        ///SET Imie_znajomego = @Imie_znajomego
-        ///,Nazwisko_znajomego = @Nazwisko_znajomego
-        ///WHERE Znajomy.I [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Usp_InsertUpdateDelete_Znajomy {
-            get {
-                return ResourceManager.GetString("Usp_InsertUpdateDelete_Znajomy", resourceCulture);
-            }
-        }
     }
 }
